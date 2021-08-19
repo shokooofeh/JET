@@ -1,0 +1,15 @@
+.idea
+.classpath
+.project
+
+./game-of-three/.classpath
+./game-of-three/.project
+./game-of-three/target
+
+
+./game-of-three-api/.classpath
+./game-of-three-api/.project
+./game-of-three-api/target
+
+
+
