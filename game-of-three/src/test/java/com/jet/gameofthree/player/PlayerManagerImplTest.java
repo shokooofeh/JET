@@ -1,10 +1,9 @@
 package com.jet.gameofthree.player;
 
-import static org.junit.Assert.assertThrows;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-
+import com.jet.gameofthree.domain.Player;
+import com.jet.gameofthree.domain.PlayerRepository;
+import com.jet.gameofthree.rules.exceptions.PlayerCannotBeRegisteredException;
+import com.jet.gameofthree.rules.player.PlayerPolicy;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 import org.junit.runner.RunWith;
@@ -12,10 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.jet.gameofthree.domain.Player;
-import com.jet.gameofthree.rules.exceptions.PlayerCannotBeRegisteredException;
-import com.jet.gameofthree.domain.PlayerRepository;
-import com.jet.gameofthree.rules.player.PlayerPolicy;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerManagerImplTest {
@@ -30,7 +27,7 @@ public class PlayerManagerImplTest {
 	private PlayerPolicy playerPolicy;
 
 	@Test
-	public void should_add_savePlayer_whenThePlayerCanBeRegistered() {
+	public void save_player_whenThePlayerCanBeRegistered() {
 		Player player = new Player("SHK");
 
 		playerManager.add(player);
@@ -40,7 +37,7 @@ public class PlayerManagerImplTest {
 	}
 
 	@Test
-	public void should_add_throwException_whenThePlayerCannotBeRegistered() {
+	public void throwException_whenThePlayerCannotBeRegistered() {
 		Player player = new Player("SHK");
 		doThrow(PlayerCannotBeRegisteredException.class).when(playerPolicy).checkThatThePlayerCanBeRegistered("SHK");
 
@@ -51,7 +48,7 @@ public class PlayerManagerImplTest {
 	}
 
 	@Test
-	public void should_reinitPlayers_deleteAllPlayers() {
+	public void reinit_players_deleteAllPlayers() {
 		playerManager.reinitPlayers();
 
 		verify(playerRepository).deleteAll();

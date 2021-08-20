@@ -1,9 +1,8 @@
 package com.jet.gameofthree.rules.player;
 
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertThrows;
-import static org.mockito.Mockito.when;
-
+import com.jet.gameofthree.domain.Player;
+import com.jet.gameofthree.domain.PlayerRepository;
+import com.jet.gameofthree.rules.exceptions.PlayerCannotBeRegisteredException;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 import org.junit.runner.RunWith;
@@ -11,9 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.jet.gameofthree.domain.Player;
-import com.jet.gameofthree.rules.exceptions.PlayerCannotBeRegisteredException;
-import com.jet.gameofthree.domain.PlayerRepository;
+import static java.util.Arrays.asList;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerNamePolicyTest {
@@ -39,6 +38,5 @@ public class PlayerNamePolicyTest {
 		when(playerRepository.findAll()).thenReturn(asList(new Player("name")));
 
 		playerNamePolicy.checkThatPlayerNameIsNotUsed("other_name");
-
 	}
 }

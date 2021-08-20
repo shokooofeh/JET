@@ -1,19 +1,18 @@
 package com.jet.gameofthree.rules.player;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
-import static org.mockito.Mockito.when;
-
+import com.jet.gameofthree.domain.Player;
+import com.jet.gameofthree.domain.PlayerRepository;
+import com.jet.gameofthree.rules.exceptions.PlayerCannotBeRegisteredException;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.jet.gameofthree.domain.Player;
-import com.jet.gameofthree.rules.exceptions.PlayerCannotBeRegisteredException;
-import com.jet.gameofthree.domain.PlayerRepository;
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerNumberPolicyTest {
@@ -24,7 +23,7 @@ public class PlayerNumberPolicyTest {
 	private PlayerRepository playerRepository;
 
 	@Test
-	public void should_checkThatOtherPlayerIsRequired_throwException_whenNoOtherPlayIsRequired() {
+	public void throwException_whenNoOtherPlayIsRequired() {
 		playerNumberPolicy = new PlayerNumberPolicy(playerRepository, 2);
 		when(playerRepository.findAll()).thenReturn(asList(new Player("name1"), new Player("name2")));
 
@@ -35,7 +34,7 @@ public class PlayerNumberPolicyTest {
 	}
 
 	@Test
-	public void should_checkThatOtherPlayerIsRequired_doesntThrowException_whenOtherPlayIsRequired() {
+	public void doesNotThrowException_whenOtherPlayIsRequired() {
 		playerNumberPolicy = new PlayerNumberPolicy(playerRepository, 3);
 		when(playerRepository.findAll()).thenReturn(asList(new Player("name1"), new Player("name2")));
 
@@ -43,7 +42,7 @@ public class PlayerNumberPolicyTest {
 	}
 
 	@Test
-	public void should_isRequiredPlayerNumberAchieved_returnTrue_whenRequiredPlayerNumberIsAchieved() {
+	public void return_true_whenRequiredPlayerNumberIsAchieved() {
 		playerNumberPolicy = new PlayerNumberPolicy(playerRepository, 2);
 		when(playerRepository.findAll()).thenReturn(asList(new Player("name1"), new Player("name2")));
 
@@ -53,7 +52,7 @@ public class PlayerNumberPolicyTest {
 	}
 
 	@Test
-	public void should_isRequiredPlayerNumberAchieved_returnFalse_whenRequiredPlayerNumberIsNotAchieved() {
+	public void return_false_whenRequiredPlayerNumberIsNotAchieved() {
 		playerNumberPolicy = new PlayerNumberPolicy(playerRepository, 3);
 		when(playerRepository.findAll()).thenReturn(asList(new Player("name1"), new Player("name2")));
 
